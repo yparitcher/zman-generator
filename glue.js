@@ -17,9 +17,9 @@ function calculatemonth(doc, year, month, here) {
 	let title = monthday + " " + formatnum(today.year)
 
 	let blevanah = getmolad7days(today);
-	let blevanahtext = "\u202B" + "תחילת זמן קידוש לבנה: " + formatnum(blevanah.day) + " " + formatmonth(blevanah) + " " + meridian(blevanah) + " " + formattime(blevanah);
+	let blevanahtext = meridian(blevanah) + " " + formattime(blevanah) + " " + "\u202B" + "תחילת זמן קידוש לבנה: " + formatnum(blevanah.day) + " " + formatmonth(blevanah);
 	let elevanah = getmoladhalfmonth(today);
-	let elevanahtext = "\u202B" + "סוף זמן קידוש לבנה: " + formatnum(elevanah.day) + " " + formatmonth(elevanah) + " " + meridian(elevanah) + " " + formattime(elevanah);
+	let elevanahtext = meridian(elevanah) + " " + formattime(elevanah) + " " + "\u202B" + "סוף זמן קידוש לבנה: " + formatnum(elevanah.day) + " " + formatmonth(elevanah);
 
 	let bodyarray = [];
 	let monthlength = LastDayOfHebrewMonth(today.month, today.year);
@@ -56,7 +56,7 @@ function calculatemonth(doc, year, month, here) {
 	let moladfiller = "";
 	if (molad.hour < 12){moladfiller = "בבוקר"}else{moladfiller = "בצהרים"};
 	let moladtext = "\u202B" + 'מולד ' + formatmonth(today) + ': יום ' + formatwday(molad, 1) + " " + moladfiller + " " + formattime(molad) + " ו" + molad.sec + " חלקים"
-	let footertext = blevanahtext + "        " + elevanahtext + "        " + moladtext;
+	let footertext = moladtext + "        " + elevanahtext + "        " + blevanahtext;
 
 	let columnsarray = [{header: 'פרשה', dataKey: 'special'}, {header: monthday, dataKey: 'yom'}, {header: '', dataKey: 'wday'}, {header: 'עלות', dataKey: 'alos'}, {header: 'משיכיר', dataKey: 'mishyakir'}, {header: 'נץ', dataKey: 'netz'}, {header: 'ק"ש', dataKey: 'shma'}, {header: 'תפלה', dataKey: 'tefilah'}, {header: 'חצות', dataKey: 'chatzos'}, {header: 'מנחה\nגדולה', dataKey: 'mincha1'}, {header: 'מנחה\nקטנה', dataKey: 'mincha2'}, {header: 'פלג\nמנחה', dataKey: 'mincha3'}, {header: 'ליכט', dataKey: 'candlelighting'}, {header: 'שקיעה', dataKey: 'shkiah'}, {header: 'צאת', dataKey: 'tzais'}, {header: 'יציאת\nהשבת', dataKey: 'shabbos'}];
 
@@ -65,10 +65,12 @@ function calculatemonth(doc, year, month, here) {
 	doc.text('a', 500, 0)
 	doc.text('ב"ה', 275,5, {align: 'right'})
 	doc.setFontSize(15)
-	doc.text('לוח זמנים - ' + title,doc.internal.pageSize.width/2, 15, {align: 'center'})
+	doc.text('לוח זמנים - ' + title, doc.internal.pageSize.width/2, 15, {align: 'center'})
+	doc.setFontSize(10)
+	doc.text('for: ' + here.latitude + " " + here.longitude, doc.internal.pageSize.width/2, 20, {align: 'center'})
 
 	doc.autoTable({
-		startY: 20,
+		startY: 25,
 		margin: 5,
 		tableLineWidth: .2,
 		styles: {fillColor: null, textColor: 20, lineColor: 10, lineWidth: 0/*.1*/, fontSize: 8 },
