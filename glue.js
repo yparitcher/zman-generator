@@ -1,4 +1,7 @@
 'use strict'
+/*
+Copyright (c) 2018 Y Paritcher
+*/
 
 window.onload = function() {
 	let base =new Date()
@@ -60,6 +63,8 @@ function calculatemonth(doc, year, month, here) {
 
 	let columnsarray = [{header: 'פרשה', dataKey: 'special'}, {header: monthday, dataKey: 'yom'}, {header: '', dataKey: 'wday'}, {header: 'עלות', dataKey: 'alos'}, {header: 'משיכיר', dataKey: 'mishyakir'}, {header: 'נץ', dataKey: 'netz'}, {header: 'ק"ש', dataKey: 'shma'}, {header: 'תפלה', dataKey: 'tefilah'}, {header: 'חצות', dataKey: 'chatzos'}, {header: 'מנחה\nגדולה', dataKey: 'mincha1'}, {header: 'מנחה\nקטנה', dataKey: 'mincha2'}, {header: 'פלג\nמנחה', dataKey: 'mincha3'}, {header: 'ליכט', dataKey: 'candlelighting'}, {header: 'שקיעה', dataKey: 'shkiah'}, {header: 'צאת', dataKey: 'tzais'}, {header: 'יציאת\nהשבת', dataKey: 'shabbos'}];
 
+	let disclaimer = 'Please do not rely on the zmanim up to the last second, zmanim may be inacurate by up to 2 minutes due to refraction.'
+
 	doc.setFont('ezra', 'normal')
 	doc.setFontSize(5)
 	doc.text('a', 500, 0)
@@ -67,7 +72,7 @@ function calculatemonth(doc, year, month, here) {
 	doc.setFontSize(15)
 	doc.text('לוח זמנים - ' + title, doc.internal.pageSize.width/2, 15, {align: 'center'})
 	doc.setFontSize(10)
-	doc.text('for: ' + here.latitude + " " + here.longitude, doc.internal.pageSize.width/2, 20, {align: 'center'})
+	doc.text(zmanform.locname.value + ' ' + here.latitude + " " + here.longitude, doc.internal.pageSize.width/2, 20, {align: 'center'})
 
 	doc.autoTable({
 		startY: 25,
@@ -84,7 +89,8 @@ function calculatemonth(doc, year, month, here) {
 	});
 
 	doc.setFontSize(9)
-	doc.text( 'copyright 2019 Y Paritcher', doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+10, {align: 'center'})
+	doc.text(disclaimer, doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+5, {align: 'center'})
+	doc.text('Copyright 2019 Y Paritcher', doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+10, {align: 'center'})
 }
 
 function yearchange() {
