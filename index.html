@@ -1,0 +1,45 @@
+---
+layout: default
+title: Zmanim
+---
+
+<script src=./zmanJS/format.js></script>
+<script src=./zmanJS/hebrewcalendar.js></script>
+<script src=./zmanJS/NOAAcalculator.js></script>
+<script src=./zmanJS/zmanim.js></script>
+
+<script src=./libs/jspdf.min.js></script>
+<script src=./libs/ezra-normal.js></script>
+<script src=./libs/jspdf.plugin.autotable.min.js></script>
+<script src=./libs/tz-lookup.js></script>
+<script src=./libs/luxon.min.js></script>
+
+<script src=./glue.js></script>
+
+<p>Work in Progress</p>
+
+<form id="zmanform" action="javascript:getPDF()" method="get">
+	<div>
+		<label for="latitude">Latitude:</label>
+		<input type="number" id="latitude" name="latitude" min="-90" max="90" step="any" required="true" value="40.66896">
+	</div>
+	<div>
+		<label for="longitude">Longitude:</label>
+		<input type="number" id="longitude" name="longitude" min="-180" max="180" step="any" required="true" value="-73.94284">
+	</div>
+	<div>
+		<label for="elevation">Elevation:</label>
+		<input type="number" id="elevation" name="elevation" min="-10000" max="10000" step="any" required="true" value="0">
+	</div>
+	<div>
+		<label for="year">Year:</label>
+		<input type="number" id="year" name="year" min="1" max="7000" required="true">
+	</div>
+	<div>
+		<label for="month">Month:</label>
+		<input type="number" id="month" name="month" min="1" max="13" required="true">
+	</div>
+	<div>
+	   <input type="submit" id="generate-pdf" value="generate PDF">
+	</div>
+</form>

@@ -1,0 +1,3 @@
+[submodule "zmanJS"]
+	path = zmanJS
+	url = git@github.com:yparitcher/zmanJS.git
