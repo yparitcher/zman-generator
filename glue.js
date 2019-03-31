@@ -68,7 +68,7 @@ function calculatemonth(doc, year, month, here) {
 	doc.setFont('ezra', 'normal')
 	doc.setFontSize(5)
 	doc.text('a', 500, 0)
-	doc.text('ב"ה', 275,5, {align: 'right'})
+	doc.text('ב"ה', 273,5, {align: 'right'})
 	doc.setFontSize(15)
 	doc.text('לוח זמנים - ' + title, doc.internal.pageSize.width/2, 15, {align: 'center'})
 	doc.setFontSize(10)
@@ -89,8 +89,9 @@ function calculatemonth(doc, year, month, here) {
 	});
 
 	doc.setFontSize(9)
-	doc.text(disclaimer, doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+5, {align: 'center'})
-	doc.text('Copyright 2019 Y Paritcher', doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+10, {align: 'center'})
+	doc.text(disclaimer, doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+5, {align: 'center'});
+	doc.setTextColor("0.5");
+	doc.text('© 2019 Y Paritcher https://zmanim.yparitcher.com', 5, 213);
 }
 
 function yearchange() {
