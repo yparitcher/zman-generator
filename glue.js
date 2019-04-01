@@ -31,12 +31,12 @@ function calculatemonth(doc, year, month, here) {
 		let rowobj = {};
 		rowobj.yom = formatnum(today.day);
 		rowobj.special = "";
-		if (today.getparshah()){rowobj.special += " " + parshahformat(today.getparshah())};
-		if (today.getyomtov()){rowobj.special += " " + yomtovformat(today.getyomtov())};
-		if (today.getspecialshabbos()){rowobj.special += " " + yomtovformat(today.getspecialshabbos())};
-		if (today.getroshchodesh()){rowobj.special += " " + yomtovformat(today.getroshchodesh())};
-		if (today.getmacharchodesh()){rowobj.special += " " + yomtovformat(today.getmacharchodesh())};
-		if (today.getshabbosmevorchim()){rowobj.special += " " + yomtovformat(today.getshabbosmevorchim())};
+		if (today.getparshah()){rowobj.special += parshahformat(today.getparshah()) + ' '};
+		if (today.getyomtov()){rowobj.special += yomtovformat(today.getyomtov()) + ' '};
+		if (today.getspecialshabbos()){rowobj.special += yomtovformat(today.getspecialshabbos()) + ' '};
+		if (today.getroshchodesh()){rowobj.special += yomtovformat(today.getroshchodesh()) + ' '};
+		if (today.getmacharchodesh()){rowobj.special += yomtovformat(today.getmacharchodesh()) + ' '};
+		if (today.getshabbosmevorchim()){rowobj.special += yomtovformat(today.getshabbosmevorchim()) + ' '};
 		rowobj.wday = formatwday(today, 'true');
 		rowobj.alos = formattime(getalosbaalhatanya(today, here));
 		rowobj.mishyakir = formattime(getmisheyakir10p2degrees(today, here));
@@ -61,7 +61,7 @@ function calculatemonth(doc, year, month, here) {
 	let moladtext = "\u202B" + 'מולד ' + formatmonth(today) + ': יום ' + formatwday(molad, 1) + " " + moladfiller + " " + formattime(molad) + " ו" + molad.sec + " חלקים"
 	let footertext = moladtext + "        " + elevanahtext + "        " + blevanahtext;
 
-	let columnsarray = [{header: 'פרשה', dataKey: 'special'}, {header: monthday, dataKey: 'yom'}, {header: '', dataKey: 'wday'}, {header: 'עלות', dataKey: 'alos'}, {header: 'משיכיר', dataKey: 'mishyakir'}, {header: 'נץ', dataKey: 'netz'}, {header: 'ק"ש', dataKey: 'shma'}, {header: 'תפלה', dataKey: 'tefilah'}, {header: 'חצות', dataKey: 'chatzos'}, {header: 'מנחה\nגדולה', dataKey: 'mincha1'}, {header: 'מנחה\nקטנה', dataKey: 'mincha2'}, {header: 'פלג\nמנחה', dataKey: 'mincha3'}, {header: 'ליכט', dataKey: 'candlelighting'}, {header: 'שקיעה', dataKey: 'shkiah'}, {header: 'צאת', dataKey: 'tzais'}, {header: 'יציאת\nהשבת', dataKey: 'shabbos'}];
+	let columnsarray = [ {header: 'פרשה', dataKey: 'special'}, {header: '', dataKey: 'wday'}, {header: 'יציאת\nהשבת', dataKey: 'shabbos'}, {header: 'צאת', dataKey: 'tzais'}, {header: 'שקיעה', dataKey: 'shkiah'}, {header: 'ליכט', dataKey: 'candlelighting'}, {header: 'פלג\nמנחה', dataKey: 'mincha3'}, {header: 'מנחה\nקטנה', dataKey: 'mincha2'}, {header: 'מנחה\nגדולה', dataKey: 'mincha1'}, {header: 'חצות', dataKey: 'chatzos'}, {header: 'תפלה', dataKey: 'tefilah'}, {header: 'ק"ש', dataKey: 'shma'}, {header: 'נץ', dataKey: 'netz'}, {header: 'משיכיר', dataKey: 'mishyakir'}, {header: 'עלות', dataKey: 'alos'}, {header: monthday, dataKey: 'yom'} ];
 
 	let disclaimer = 'Please do not rely on the zmanim up to the last second, zmanim may be inacurate by up to 2 minutes due to refraction.'
 
@@ -72,7 +72,7 @@ function calculatemonth(doc, year, month, here) {
 	doc.setFontSize(15)
 	doc.text('לוח זמנים - ' + title, doc.internal.pageSize.width/2, 15, {align: 'center'})
 	doc.setFontSize(10)
-	doc.text(zmanform.locname.value + ' ' + here.latitude + " " + here.longitude, doc.internal.pageSize.width/2, 20, {align: 'center'})
+	doc.text(zmanform.locname.value + ' Lat: ' + here.latitude + ' Long: ' + here.longitude, doc.internal.pageSize.width/2, 20, {align: 'center'})
 
 	doc.autoTable({
 		startY: 25,
@@ -88,8 +88,9 @@ function calculatemonth(doc, year, month, here) {
 		foot: [{[columnsarray[0].dataKey]: {content: footertext, colSpan: 20}}]
 	});
 
-	doc.setFontSize(9)
+	doc.setFontSize(9);
 	doc.text(disclaimer, doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+5, {align: 'center'});
+	doc.setFontSize(6);
 	doc.setTextColor("0.5");
 	doc.text('© 2019 Y Paritcher https://zmanim.yparitcher.com', 5, 213);
 }
@@ -112,6 +113,5 @@ function getPDF() {
 
 	calculatemonth(doc, parseInt(zmanform.year.value), parseInt(zmanform.month.value), here)
 
-	//doc.output('datauri', 'test.pdf')
 	doc.save('Zmanim.pdf')
 }
