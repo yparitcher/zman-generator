@@ -11,6 +11,10 @@ window.onload = function() {
 	zmanform.year.onchange = yearchange;
 }
 
+function yearchange() {
+	zmanform.month.max = (zmanJS.HebrewLeapYear(zmanform.year.value) ? 13 : 12);
+}
+
 function calculatemonth(doc, year, month, here) {
 
 	luxon.Settings.defaultZoneName = tzlookup(here.latitude, here.longitude);
@@ -93,10 +97,6 @@ function calculatemonth(doc, year, month, here) {
 	doc.setFontSize(6);
 	doc.setTextColor("0.5");
 	doc.text('© 2019 Y Paritcher https://zmanim.yparitcher.com', 5, 213);
-}
-
-function yearchange() {
-	zmanform.month.max = (HebrewLeapYear(zmanform.year.value) ? 13 : 12);
 }
 
 function getPDF() {
