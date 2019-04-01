@@ -15,7 +15,7 @@ function calculatemonth(doc, year, month, here) {
 
 	luxon.Settings.defaultZoneName = tzlookup(here.latitude, here.longitude);
 	let today = new hdate(year, month, 1, 12, 0, 0, 0, 0, 0)
-	today.offset = (luxon.DateTime.fromSeconds(today.hdateunix()).offset * 60);
+	today.setoffset(luxon.DateTime.fromSeconds(today.hdateunix()).offset * 60);
 	let monthday = formatmonth(today);
 	let title = monthday + " " + formatnum(today.year)
 
