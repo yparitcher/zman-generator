@@ -5,7 +5,7 @@ Copyright (c) 2018 Y Paritcher
 
 window.onload = function() {
 	let base =new Date()
-	let today = new hdate().convertDate(base);
+	let today = new zmanJS.hdate().convertDate(base);
 	zmanform.year.value = today.year;
 	zmanform.month.value = today.month;
 	zmanform.year.onchange = yearchange;
@@ -18,51 +18,51 @@ function yearchange() {
 function calculatemonth(doc, year, month, here) {
 
 	luxon.Settings.defaultZoneName = tzlookup(here.latitude, here.longitude);
-	let today = new hdate(year, month, 1, 12, 0, 0, 0, 0, 0)
+	let today = new zmanJS.hdate(year, month, 1, 12, 0, 0, 0, 0, 0)
 	today.setoffset(luxon.DateTime.fromSeconds(today.hdateunix()).offset * 60);
-	let monthday = formatmonth(today);
-	let title = monthday + " " + formatnum(today.year)
+	let monthday = zmanJS.formatmonth(today);
+	let title = monthday + " " + zmanJS.formatnum(today.year)
 
-	let blevanah = getmolad7days(today);
-	let blevanahtext = meridian(blevanah) + " " + formattime(blevanah) + " " + "\u202B" + "תחילת זמן קידוש לבנה: " + formatnum(blevanah.day) + " " + formatmonth(blevanah);
-	let elevanah = getmoladhalfmonth(today);
-	let elevanahtext = meridian(elevanah) + " " + formattime(elevanah) + " " + "\u202B" + "סוף זמן קידוש לבנה: " + formatnum(elevanah.day) + " " + formatmonth(elevanah);
+	let blevanah = zmanJS.getmolad7days(today);
+	let blevanahtext = zmanJS.meridian(blevanah) + " " + zmanJS.formattime(blevanah) + " " + "\u202B" + "תחילת זמן קידוש לבנה: " + zmanJS.formatnum(blevanah.day) + " " + zmanJS.formatmonth(blevanah);
+	let elevanah = zmanJS.getmoladhalfmonth(today);
+	let elevanahtext = zmanJS.meridian(elevanah) + " " + zmanJS.formattime(elevanah) + " " + "\u202B" + "סוף זמן קידוש לבנה: " + zmanJS.formatnum(elevanah.day) + " " + zmanJS.formatmonth(elevanah);
 
 	let bodyarray = [];
-	let monthlength = LastDayOfHebrewMonth(today.month, today.year);
+	let monthlength = zmanJS.LastDayOfHebrewMonth(today.month, today.year);
 	for(let i = 0; i < monthlength; i++, today.hdateaddday(1)){
 		today.offset = (luxon.DateTime.fromSeconds(today.hdateunix()).offset * 60);
 		let rowobj = {};
-		rowobj.yom = formatnum(today.day);
+		rowobj.yom = zmanJS.formatnum(today.day);
 		rowobj.special = "";
-		if (today.getparshah()){rowobj.special += parshahformat(today.getparshah()) + ' '};
-		if (today.getyomtov()){rowobj.special += yomtovformat(today.getyomtov()) + ' '};
-		if (today.getspecialshabbos()){rowobj.special += yomtovformat(today.getspecialshabbos()) + ' '};
-		if (today.getroshchodesh()){rowobj.special += yomtovformat(today.getroshchodesh()) + ' '};
-		if (today.getmacharchodesh()){rowobj.special += yomtovformat(today.getmacharchodesh()) + ' '};
-		if (today.getshabbosmevorchim()){rowobj.special += yomtovformat(today.getshabbosmevorchim()) + ' '};
-		rowobj.wday = formatwday(today, 'true');
-		rowobj.alos = formattime(getalosbaalhatanya(today, here));
-		rowobj.mishyakir = formattime(getmisheyakir10p2degrees(today, here));
-		rowobj.netz = formattime(getsunrise(today, here));
-		rowobj.shma = formattime(getshmabaalhatanya(today, here));
-		rowobj.tefilah = formattime(gettefilabaalhatanya(today, here));
-		rowobj.chatzos = formattime(getchatzosbaalhatanya(today, here));
-		rowobj.mincha1 = formattime(getminchagedolabaalhatanya(today, here));
-		rowobj.mincha2 = formattime(getminchaketanabaalhatanya(today, here));
-		rowobj.mincha3 = formattime(getplagbaalhatanya(today, here));
-		if (today.iscandlelighting() == 1) {rowobj.candlelighting = formattime(getcandlelighting(today, here));}
-		if (today.iscandlelighting() == 2) {rowobj.candlelighting = formattime(gettzais8p5(today, here));}
-		rowobj.shkiah = formattime(getsunset(today, here));
-		if (!today.isassurbemelachah()){rowobj.tzais = formattime(gettzaisbaalhatanya(today, here));}
-		if (today.isassurbemelachah()){rowobj.shabbos = formattime(gettzais8p5(today, here));}
+		if (today.getparshah()){rowobj.special += zmanJS.parshahformat(today.getparshah()) + ' '};
+		if (today.getyomtov()){rowobj.special += zmanJS.yomtovformat(today.getyomtov()) + ' '};
+		if (today.getspecialshabbos()){rowobj.special += zmanJS.yomtovformat(today.getspecialshabbos()) + ' '};
+		if (today.getroshchodesh()){rowobj.special += zmanJS.yomtovformat(today.getroshchodesh()) + ' '};
+		if (today.getmacharchodesh()){rowobj.special += zmanJS.yomtovformat(today.getmacharchodesh()) + ' '};
+		if (today.getshabbosmevorchim()){rowobj.special += zmanJS.yomtovformat(today.getshabbosmevorchim()) + ' '};
+		rowobj.wday = zmanJS.formatwday(today, 'true');
+		rowobj.alos = zmanJS.formattime(zmanJS.getalosbaalhatanya(today, here));
+		rowobj.mishyakir = zmanJS.formattime(zmanJS.getmisheyakir10p2degrees(today, here));
+		rowobj.netz = zmanJS.formattime(zmanJS.getsunrise(today, here));
+		rowobj.shma = zmanJS.formattime(zmanJS.getshmabaalhatanya(today, here));
+		rowobj.tefilah = zmanJS.formattime(zmanJS.gettefilabaalhatanya(today, here));
+		rowobj.chatzos = zmanJS.formattime(zmanJS.getchatzosbaalhatanya(today, here));
+		rowobj.mincha1 = zmanJS.formattime(zmanJS.getminchagedolabaalhatanya(today, here));
+		rowobj.mincha2 = zmanJS.formattime(zmanJS.getminchaketanabaalhatanya(today, here));
+		rowobj.mincha3 = zmanJS.formattime(zmanJS.getplagbaalhatanya(today, here));
+		if (today.iscandlelighting() == 1) {rowobj.candlelighting = zmanJS.formattime(zmanJS.getcandlelighting(today, here));}
+		if (today.iscandlelighting() == 2) {rowobj.candlelighting = zmanJS.formattime(zmanJS.gettzais8p5(today, here));}
+		rowobj.shkiah = zmanJS.formattime(zmanJS.getsunset(today, here));
+		if (!today.isassurbemelachah()){rowobj.tzais = zmanJS.formattime(zmanJS.gettzaisbaalhatanya(today, here));}
+		if (today.isassurbemelachah()){rowobj.shabbos = zmanJS.formattime(zmanJS.gettzais8p5(today, here));}
 		bodyarray.push(rowobj);
 	}
 
-	let molad = getmolad(today.year, today.month);
+	let molad = zmanJS.getmolad(today.year, today.month);
 	let moladfiller = "";
 	if (molad.hour < 12){moladfiller = "בבוקר"}else{moladfiller = "בצהרים"};
-	let moladtext = "\u202B" + 'מולד ' + formatmonth(today) + ': יום ' + formatwday(molad, 1) + " " + moladfiller + " " + formattime(molad) + " ו" + molad.sec + " חלקים"
+	let moladtext = "\u202B" + 'מולד ' + zmanJS.formatmonth(today) + ': יום ' + zmanJS.formatwday(molad, 1) + " " + moladfiller + " " + zmanJS.formattime(molad) + " ו" + molad.sec + " חלקים"
 	let footertext = moladtext + "        " + elevanahtext + "        " + blevanahtext;
 
 	let columnsarray = [ {header: 'פרשה', dataKey: 'special'}, {header: '', dataKey: 'wday'}, {header: 'יציאת\nהשבת', dataKey: 'shabbos'}, {header: 'צאת', dataKey: 'tzais'}, {header: 'שקיעה', dataKey: 'shkiah'}, {header: 'ליכט', dataKey: 'candlelighting'}, {header: 'פלג\nמנחה', dataKey: 'mincha3'}, {header: 'מנחה\nקטנה', dataKey: 'mincha2'}, {header: 'מנחה\nגדולה', dataKey: 'mincha1'}, {header: 'חצות', dataKey: 'chatzos'}, {header: 'תפלה', dataKey: 'tefilah'}, {header: 'ק"ש', dataKey: 'shma'}, {header: 'נץ', dataKey: 'netz'}, {header: 'משיכיר', dataKey: 'mishyakir'}, {header: 'עלות', dataKey: 'alos'}, {header: monthday, dataKey: 'yom'} ];
@@ -101,9 +101,9 @@ function calculatemonth(doc, year, month, here) {
 
 function getPDF() {
 
-	let here = new locations(zmanform.latitude.value, zmanform.longitude.value, zmanform.elevation.value)
+	let here = new zmanJS.locations(zmanform.latitude.value, zmanform.longitude.value, zmanform.elevation.value)
 	let base =new Date()
-	let today = new hdate().convertDate(base);
+	let today = new zmanJS.hdate().convertDate(base);
 
 	let doc = new jsPDF({
 	 orientation: 'l',
