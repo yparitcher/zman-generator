@@ -36,13 +36,21 @@ function yearchange() {
 	}
 }
 
+function typechange() {
+	let els = document.getElementsByClassName('month');
+	let hidden = (zmanform.type.value == 'Year') ? true : false;
+	for (let index in els){ els.item(index).hidden = hidden;}
+}
+
 window.onload = function() {
 	let base = new Date();
 	let today = new zmanJS.hdate().convertDate(base);
 	zmanform.year.value = today.year;
 	monthform();
+	typechange();
 	setbyval(zmanform.month, today.month)
 	zmanform.year.onchange = yearchange;
+	zmanform.type.onchange = typechange;
 }
 
 function calculatemonth(doc, here, year, month) {
