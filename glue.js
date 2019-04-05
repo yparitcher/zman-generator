@@ -37,7 +37,7 @@ function yearchange() {
 }
 
 window.onload = function() {
-	let base =new Date()
+	let base = new Date();
 	let today = new zmanJS.hdate().convertDate(base);
 	zmanform.year.value = today.year;
 	monthform();
@@ -45,7 +45,7 @@ window.onload = function() {
 	zmanform.year.onchange = yearchange;
 }
 
-function calculatemonth(doc, year, month, here) {
+function calculatemonth(doc, here, year, month) {
 
 	luxon.Settings.defaultZoneName = tzlookup(here.latitude, here.longitude);
 	let today = new zmanJS.hdate(year, month, 1, 12, 0, 0, 0, 0, 0)
@@ -127,21 +127,36 @@ function calculatemonth(doc, year, month, here) {
 	doc.setFontSize(6);
 	doc.setTextColor("0.5");
 	doc.text('© 2019 Y Paritcher https://zmanim.yparitcher.com', 5, 213);
+	doc.setTextColor("0");
+}
+
+function calculateyear(doc, here, year) {
+	let lim = (zmanJS.HebrewLeapYear(year) ? 13 : 12);
+	let monthlist = (zmanJS.HebrewLeapYear(zmanform.year.value) ? lmonths.leap : lmonths.regular);
+	calculatemonth(doc, here, year, parseInt(monthlist[0].value));
+	for (let i = 1; i < lim; i++) {
+		doc.addPage('letter', 'l');
+		calculatemonth(doc, here, year, parseInt(monthlist[i].value));
+	}
 }
 
 function getPDF() {
 
-	let here = new zmanJS.locations(zmanform.latitude.value, zmanform.longitude.value, zmanform.elevation.value)
-	let base =new Date()
+	let here = new zmanJS.locations(zmanform.latitude.value, zmanform.longitude.value, zmanform.elevation.value);
+	let base =new Date();
 	let today = new zmanJS.hdate().convertDate(base);
 
 	let doc = new jsPDF({
 	 orientation: 'l',
 	 unit: 'mm',
 	 format: 'letter'
-	})
+	});
 
-	calculatemonth(doc, parseInt(zmanform.year.value), parseInt(zmanform.month.value), here)
+	if (zmanform.type.value == 'Year') {
+		calculateyear(doc, here, parseInt(zmanform.year.value));
+	} else {
+		calculatemonth(doc, here, parseInt(zmanform.year.value), parseInt(zmanform.month.value));
+	}
 
 	doc.save('Zmanim.pdf')
 }
