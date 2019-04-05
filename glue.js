@@ -3,16 +3,46 @@
 Copyright (c) 2018 Y Paritcher
 */
 
+const lmonths = { leap: [{ value: '7 ', disp: 'Tishrei' }, { value: '8 ', disp: 'Cheshvan' }, { value: '9 ', disp: 'Kislev' }, { value: '10 ', disp: 'Teves' }, { value: '11 ', disp: 'Shevat' }, { value: '12 ', disp: 'Adar I' }, { value: '13 ', disp: 'Adar II' }, { value: '1 ', disp: 'Nissan' }, { value: '2 ', disp: 'Iyar' }, { value: '3 ', disp: 'Sivan' }, { value: '4 ', disp: 'Tammuz' }, { value: '5 ', disp: 'Av' }, { value: '6 ', disp: 'Elul' }], regular: [{ value: '7 ', disp: 'Tishrei' }, { value: '8 ', disp: 'Cheshvan' }, { value: '9 ', disp: 'Kislev' }, { value: '10 ', disp: 'Teves' }, { value: '11 ', disp: 'Shevat' }, { value: '12 ', disp: 'Adar' }, { value: '1 ', disp: 'Nissan' }, { value: '2 ', disp: 'Iyar' }, { value: '3 ', disp: 'Sivan' }, { value: '4 ', disp: 'Tammuz' }, { value: '5 ', disp: 'Av' }, { value: '6 ', disp: 'Elul' }] }
+
+function setbyval(field, value) {
+	for (let i = 0; i< field.length; i++) {
+		if (field.options[i].value == value) {
+			field.options[i].selected = true;
+			break;
+		}
+	}
+
+}
+
+function monthform() {
+	zmanform.month.innerHTML = "";
+	let monthlist = (zmanJS.HebrewLeapYear(zmanform.year.value) ? lmonths.leap : lmonths.regular);
+	for(let index in monthlist) {
+		zmanform.month.options[zmanform.month.options.length] = new Option(monthlist[index].disp, monthlist[index].value);
+	}
+}
+
+function yearchange() {
+	let old = zmanform.month.value;
+	let len = zmanform.month.length;
+	monthform();
+	setbyval(zmanform.month, old);
+	if (zmanform.month.length != len){
+		if (old == 13) { setbyval(zmanform.month, 12);}
+		if (old == 12) {
+			if (zmanJS.HebrewLeapYear(zmanform.year.value)) {setbyval(zmanform.month, 13);}
+		}
+	}
+}
+
 window.onload = function() {
 	let base =new Date()
 	let today = new zmanJS.hdate().convertDate(base);
 	zmanform.year.value = today.year;
-	zmanform.month.value = today.month;
+	monthform();
+	setbyval(zmanform.month, today.month)
 	zmanform.year.onchange = yearchange;
-}
-
-function yearchange() {
-	zmanform.month.max = (zmanJS.HebrewLeapYear(zmanform.year.value) ? 13 : 12);
 }
 
 function calculatemonth(doc, year, month, here) {
