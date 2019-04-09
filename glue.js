@@ -134,7 +134,7 @@ function calculatemonth(doc, here, year, month) {
 	doc.text(disclaimer, doc.internal.pageSize.width/2, doc.lastAutoTable.finalY+5, {align: 'center'});
 	doc.setFontSize(6);
 	doc.setTextColor("0.5");
-	doc.text('© 2019 Y Paritcher https://zmanim.yparitcher.com', 5, 213);
+	doc.text('© 2019 Y Paritcher https://zmanim.paritcher.com', 5, 213);
 	doc.setTextColor("0");
 }
 
