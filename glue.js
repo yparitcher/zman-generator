@@ -129,7 +129,7 @@ function zchometz(key, today, here) {
 	let eat = zmanJS.formattime(zmanJS[zmanlist.tefila[zmanform.tefila.value].func](today, here));
 	let burn = zmanJS.formattime(zmanJS[zmanlist.biurchometz[zmanform.biurchometz.value].func](today, here));
 	return { [key]: {
-		content: 'אכילת חמץ ' + eat  + '        ביאור חמץ ' + burn,
+		content: 'אכילת חמץ ' + eat  + '        ביעור חמץ ' + burn,
 		colSpan: 20,
 		styles: {
 			halign: 'center',
