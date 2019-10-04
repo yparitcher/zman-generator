@@ -1,0 +1,10 @@
+baseURL = "https://zmanim.paritcher.com/"
+languageCode = "en-us"
+name = "Zmanim"
+title = "Zmanim"
+disableKinds = [ "RSS", "sitemap" ]
+
+[Params]
+  description = "Zmanim chart PDF generator"
+  email = "zmanim@paritcher.com"
+  author = "zmanim@paritcher.com"
