@@ -2,7 +2,7 @@ baseURL = "https://zmanim.paritcher.com/"
 languageCode = "en-us"
 name = "Zmanim"
 title = "Zmanim"
-disableKinds = [ "RSS", "sitemap" ]
+disableKinds = [ "RSS", "sitemap", "taxonomy", "taxonomyTerm", "section", "home" ]
 
 [Params]
   description = "Zmanim chart PDF generator"
