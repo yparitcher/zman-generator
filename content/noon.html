@@ -1,0 +1,54 @@
+---
+layout: default
+title: Noon
+url: /noon.html
+---
+
+<script src=./zmanJS/hebrewcalendar.js></script>
+<script src=./zmanJS/format.js></script>
+<script src=./zmanJS/NOAAcalculator.js></script>
+<script src=./zmanJS/zmanim.js></script>
+
+<script src=./libs/tz-lookup.js></script>
+<script src=./libs/luxon.min.js></script>
+
+<script src=./noon.js></script>
+
+<form id="zmanform" oninput="javascript:getavgnoon()" action="javascript:getavgnoon()" method="get">
+<table style="text-align:center">
+	<colgroup>
+		<col style="width:33%">
+		<col style="width:34%">
+		<col style="width:33%">
+	</colgroup>
+	<tr>
+		<td>
+			<label for="latitude">Latitude:</label>
+			<input type="number" id="latitude" name="latitude" min="-90" max="90" step="any" required="true" value="40.66896">
+		</td>
+		<td>
+			<label for="longitude">Longitude:</label>
+			<input type="number" id="longitude" name="longitude" min="-180" max="180" step="any" required="true" value="-73.94284">
+		</td>
+		<td>
+			<label for="year">Year:</label>
+			<input type="number" id="year" name="year" min="1" max="7000" required="true">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="RS">Rise/Set average:</label>
+			<output form="zmanform" for="latitude longitude year" id="RS" name="RS">
+		</td>
+		<td>
+			<label for="Zenith">Zenith average:</label>
+			<output form="zmanform" for="latitude longitude year" id="Zenith" name="Zenith">
+		</td>
+		<td>
+			<label for="lat">Longitude average:</label>
+			<output form="zmanform" for="latitude longitude year" id="lat" name="lat">
+		</td>
+	</tr>
+</table>
+</form>
+
