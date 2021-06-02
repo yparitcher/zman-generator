@@ -248,7 +248,7 @@ function calculatemonth(here, year, month) {
 
 function formatpage(doc, here, year, month) {
 	let table = calculatemonth(here, year, month);
-	let disclaimer = 'Zmanim may be inacurate by up to 2 minutes due to refraction.'
+	let disclaimer = 'Zmanim may be inaccurate by up to 2 minutes due to refraction.'
 	let cw = doc.internal.pageSize.width/2;
 	doc.setFont('ezra', 'normal')
 	doc.setFontSize(5)
